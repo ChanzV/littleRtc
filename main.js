@@ -32,13 +32,6 @@ const servers = {
 }
 
 
-let constraints = {
-    video: {
-        width: { min: 640, ideal: 1920, max: 1920 },
-        height: { min: 480, ideal: 1080, max: 1080 },
-    },
-    audio: true
-}
 
 let init = async () => {
     //调用createInstance方法，创建并返回一个 RtmClient 实例。
@@ -170,10 +163,24 @@ let createPeerConnection = async (MemberId) => {
 /************呼叫方***********/
 /************呼叫方***********/
 
+let constraints = {
+    video: {
+        width: { min: 640, ideal: 1920, max: 1920 },
+        height: { min: 480, ideal: 1080, max: 1080 },
+    },
+    audio: true
+}
+
 let handleUserJoined = async (MemberId) => {
     console.log('A new user joined the channel:', MemberId)
     console.log(this);
-    localStream = await navigator.mediaDevices.getUserMedia(constraints)
+    // localStream = await navigator.mediaDevices.getUserMedia(constraints)
+    localStream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+            width: { ideal: 1920, max: 1920 },
+            height: {ideal: 1080, max: 1080 },
+        }
+    })
     user1.srcObject = localStream
     createOffer(MemberId)
 }
