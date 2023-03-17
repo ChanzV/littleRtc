@@ -185,7 +185,8 @@ let constraints = {
 let createOffer = async (MemberId) => {
     await createPeerConnection(MemberId)
     let offer = await peerConnection.createOffer()
-    console.log('生成的offer是:'+offer);
+    console.log('生成的offer是:');
+    console.log(offer)
     try {
         await peerConnection.setLocalDescription(offer)
     }
